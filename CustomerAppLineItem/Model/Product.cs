@@ -13,7 +13,7 @@ namespace CustomerAppLineItem.Model
         private double _price;
         private double _dicountPercent;
 
-        public int Id
+        public int PdtId
         {
             get { return _id; }
             set { _id = value; }
@@ -33,11 +33,19 @@ namespace CustomerAppLineItem.Model
             get{ return _dicountPercent; }
             set { _dicountPercent = value; }
         }
+        public Product(int productId, string name, double price, double discountPercent) 
+        {
+            PdtId= productId;
+            Name= name;
+            Price= price;
+            DicountPercent= discountPercent;
+
+        }
 
         public double CalculateDiscountedPrice()
         {
-            double discountedPrice = _price - (_price * (_dicountPercent / 100.0));
-            return discountedPrice;
+            return _price - (_price * (_dicountPercent / 100.0));
+            
         }
 
     }

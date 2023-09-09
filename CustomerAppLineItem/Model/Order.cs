@@ -11,8 +11,8 @@ namespace CustomerAppLineItem.Model
     {
         private int _id;
         private DateTime _date;
-        private List<LineItem> Items { get; set; }
-
+        public List<LineItem> Items { get; set; }
+       // public List<LineItem> Items { get; set; }
 
         public int Id
         {
@@ -24,11 +24,11 @@ namespace CustomerAppLineItem.Model
             get { return _date; }
             set { _date = value; }
         }
-        public Order(int id , DateTime date ) 
+        public Order(int id , DateTime date, List<LineItem> items) 
         {
             Id = id;
             Date = date;
-            Items = new List<LineItem>();
+            Items =items;
         }
         public double CalculateOrderPrice()
         {

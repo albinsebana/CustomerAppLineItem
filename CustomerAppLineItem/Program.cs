@@ -1,4 +1,5 @@
 ﻿using CustomerAppLineItem.Model;
+using System.Collections.Generic;
 
 namespace CustomerAppLineItem
 {
@@ -6,43 +7,33 @@ namespace CustomerAppLineItem
     {
         static void Main(string[] args)
         {
-            
-            List<Product> products = new List<Product>();
 
-            Product product1 = new Product
-            {
-                Id = 1,
-                Name = "Soap",
-                Price = 100.0,
-                DicountPercent = 10.0
-            };
-            products.Add(product1);
 
-            Product product2 = new Product
-            {
-                Id = 2,
-                Name = "HeadPhone",
-                Price = 2350.0,
-                DicountPercent = 12.0
-            };
-            products.Add(product2);
-            foreach (Product product in products)
-            {
-                Console.WriteLine("\nProduct Details:");
-                Console.WriteLine("Product ID: " + product.Id);
-                Console.WriteLine("Product Name: " + product.Name);
-                Console.WriteLine("Product Price: RS : " + product.Price);
-                Console.WriteLine("Discount Percent: " + product.DicountPercent + "%");
-                Console.WriteLine(" Price After Discount: RS : " + product.CalculateDiscountedPrice());
-            }
-            LineItem lineItem = new LineItem(1, 3, product1);
+            Product chair = new Product(1, "Chair", 4444, 15);
+            Product table = new Product(2, "Table", 11500, 10);
+            Product door = new Product(3, "Door", 13550, 20);
+            Product sink = new Product(4, "Sink", 10300, 10);
+
+
+
+            LineItem lineItem1 = new LineItem(1, 3, chair);
+            LineItem lineItem2 = new LineItem(2, 2, door);
+
+
+
+
+
+            Order customerOrder1 = new Order(1, DateTime.Now, new List<LineItem> { lineItem1 , lineItem2 });
+
+
 
             
-            Console.WriteLine($"\n\nProduct Id:{product1.Id} | " +
-                $"Product Name: {product1.Name} | Quantity : {lineItem.Quantity} |" +
-                $"Discount :{product1.DicountPercent}% |" +
-                $" Unit Cost After Discount :{product1.CalculateDiscountedPrice()}| " +
-                $"Total Line Item Cost : {lineItem.CalculateLineItemCost()}");
+
+            Customer customer1 = new Customer(101, "Albin", new List<Order> { customerOrder1 });
+
+            Console.WriteLine("Customer 1:");
+            Console.WriteLine(customer1.CustomerInfo());
+
         }
     }
 }

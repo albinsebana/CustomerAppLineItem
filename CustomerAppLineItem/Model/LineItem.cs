@@ -13,12 +13,7 @@ namespace CustomerAppLineItem.Model
         private Product _product;
         //List<LineItem> _items;
 
-        public LineItem (int id, int quantity, Product product)
-        {
-            _id = id;
-            _quantity = quantity;
-            _product = product;
-        }
+        
         public int Id
         { 
             get { return _id; }
@@ -34,10 +29,18 @@ namespace CustomerAppLineItem.Model
             get { return _product; }
             set { _product = value; }
         }
+        public LineItem(int id, int quantity, Product product)
+        {
+            Id = id;
+            Quantity = quantity;
+            Product = product;
+        }
+
+
         public double CalculateLineItemCost()
         {
-            _product.Price = _product.CalculateDiscountedPrice() * _quantity;
-            return _product.Price;
+            return _product.CalculateDiscountedPrice() * _quantity;
+            
         }
     }
 }
