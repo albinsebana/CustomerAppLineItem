@@ -18,6 +18,15 @@ namespace CustomerAppLineItem.Model
             Name = name;    
             Orders = orders;
         }
+        public double GetTotalOrderPrice()
+        {
+            double totalCost = 0;
+            foreach (Order order in Orders)
+            {
+                totalCost += order.CalculateOrderPrice();
+            }
+            return totalCost;
+        }
         public string CustomerInfo()
         {
             string customerInfo = $"Customer Id: {CustomerId}\n";
@@ -27,15 +36,22 @@ namespace CustomerAppLineItem.Model
             for (int i = 0; i < Orders.Count; i++)
             {
                 Order order = Orders[i];
-                customerInfo += "LineItemId\tProductId\tProductName\tQuantity\tUnitPrice\tDiscount%\tUnitCostAfterDiscount\tTotalLineItemCost\n";
+                customerInfo += $"Order No. {i + 1}\n";
+                customerInfo += $"Order Id: {order.Id}\n";
+                customerInfo += $"Order Date: {order.Date}\n\n";
+
+                customerInfo += "LineItmId|PdtId|PdtName|Qty|UnitPrice|DiscntIn%|UnitcostAfterDiscount|TotalLineItemCost\n";
                 foreach (var item in order.Items)
                 {
                     var product = item.Product;
-                    customerInfo += $"{item.Id}\t{product.PdtId,-12}\t{product.Name}\t" +
-                        $"{item.Quantity,-8}\t{product.Price}\t{product.DicountPercent}%\t" +
-                        $"{product.CalculateDiscountedPrice()}\t{item.CalculateLineItemCost()}\n";
+                    customerInfo += $"{item.Id}\t{product.PdtId}\t{product.Name}\t" +
+                        $"{item.Quantity}\t{product.Price}\t{product.DicountPercent}%\t" +
+                        $"{product.CalculateDiscountedPrice()}\t\t\t{item.CalculateLineItemCost()}\n";
                 }
-            
+                customerInfo += "\n";
+                double orderCost = order.CalculateOrderPrice();
+                customerInfo += $"Order Cost: {orderCost}";
+                //customerInfo +=  orderCostLine + "\n\n";
             }
             return customerInfo ;
         }
